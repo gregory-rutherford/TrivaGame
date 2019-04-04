@@ -21,26 +21,33 @@ var questionsAnswers = [
     pic: "<img>"
   }
 ];
-startGame();
-function startGame() {
+// startGame();
+// function startGame() {
   $("#startButton").on("click", function() {
     $(this).hide();
     countDown(counter);
     questionDom();
-    clickAnswer();
   });
-}
+// }
 //timer that begins at each new question
 function countDown(x) {
+    $("#timerFrame").html(
+        "<h2>Time Remaining: " + x + "</h2>")
     count = setInterval(function() {
+        x--;
+        if (x === -1){
+            correctDom();
+            setTimeout(nextQuestion, 5000);
+            return clearInterval(count);
+        }
     $("#timerFrame").html(
       "<h2>Time Remaining: " + x + "</h2>",
-      x-- || clearInterval(count)
     );
   }, 1000);
 }
 // writes the question and answers to the page
 function questionDom() {
+    console.log(questionsAnswers[questionIndex].question);
   $("#questionFrame").text(questionsAnswers[questionIndex].question);
   $("#answersFrame").html(
     "<p class='answer'>" +
@@ -58,39 +65,46 @@ function questionDom() {
   );
 }
 //makes each answer clickable, compares the correct answers and calls the correct or incorrect dom functions
-function clickAnswer() {
-  $(".answer").click(function() {
+$(document).on("click", ".answer", function() {
     console.log("you clicked me");
+    setTimeout(nextQuestion, 5000);
     if ($(this).text() === questionsAnswers[questionIndex].correctAnswer) {
-      console.log("the correct guess has been clicked");
-      correctDom();
-      correctCounter++;
-      clearInterval(count);
+        console.log("the correct guess has been clicked");
+        correctDom(true);
+        correctCounter++;
+        clearInterval(count);
     } else {
-      incorrectDom();
-      incorrectCounter++;
-      clearInterval(count);
-      //set timeout for the next question function
+        correctDom(false);
+        incorrectCounter++;
+        clearInterval(count);    
     }
-  });
-}
+});
+
 
 //hides the question and answer elements and displays the correct answer screen
-function correctDom() {
+function correctDom(userAnswer) {
   $("#questionFrame").hide();
   $("#answersFrame").hide();
+  if (userAnswer === true){
   $("#winFrame").text("Correct");
+  }
+  else if (userAnswer === false) {
+    $("#loseFrame").text("ya guessed wrong!");
+  } else {
+      $("#loseFrame").text("you ran out of time");
+  }
 }
-//same as above but for the incorrect answers
-function incorrectDom() {
-    $("#questionFrame").hide();
-    $("#answersFrame").hide();
-    $("#loseFrame").text("ya guessed wrong bitch!");
+function nextQuestion(){
+    $("#winFrame").hide();
+    $("#loseFrame").hide();
+    questionIndex++;
+    if (questionIndex < questionsAnswers.length) {
+    countDown(counter);
+    questionDom();
+    $("#questionFrame").show();
+    $("#answersFrame").show();
+    setTimeout(nextQuestion(), 5000);
+    } else {
+        //end game function here
+    }
 }
-
-
-// function nextQuestion(){
-//     questionIndex++;
-//     countDown();
-//     questionDom();
-// }
