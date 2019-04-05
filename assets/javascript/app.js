@@ -36,6 +36,8 @@ var questionsAnswers = [
     $(this).hide();
     countDown(counter);
     questionDom();
+    $("#questionFrame").show();
+    $("#answersFrame").show();
   });
 
 //timer that begins at each new question
@@ -56,7 +58,6 @@ function countDown(x) {
 }
 // writes the question and answers to the page
 function questionDom() {
-    console.log(questionsAnswers[questionIndex].question);
   $("#questionFrame").text(questionsAnswers[questionIndex].question);
   $("#answersFrame").html(
     "<p class='answer'>" +
@@ -98,16 +99,16 @@ function correctDom() {
   $("#winFrame").show();
   $("#winFrame").html("<p>Correct!</p>" + questionsAnswers[questionIndex].pic);
 }
-
+// same as above but shows the incorrect screen
 function incorrectDom() {
     $("#questionFrame").hide();
     $("#answersFrame").hide();
     $("#loseFrame").show(); 
     $("#loseFrame").html("<p> You guessed Wrong! The correct answer is: " 
-    + questionsAnswers[questionIndex].correctAnswer + "</p>");
-    $("#loseFrame").html(questionsAnswers[questionIndex].pic);
+    + questionsAnswers[questionIndex].correctAnswer + "</p>"
+    + questionsAnswers[questionIndex].pic);
   } 
-
+// hides the results and moves onto the next question
 function nextQuestion() {
     $("#winFrame").hide();
     $("#loseFrame").hide(); 
@@ -118,6 +119,21 @@ function nextQuestion() {
         $("#questionFrame").show();
         $("#answersFrame").show();
     } else {
-        //end game function here
+        $("#resultsFrame").show();
+        $("#resultsFrame").html("<h1>Thanks for playing! Here are your results: "
+        + "<br/>"  
+        + correctCounter + " correct " + "<br/>" 
+        + incorrectCounter + " incorrect </h1>");
+        setTimeout(reset, 5000); 
     }
+}
+
+function reset () {
+    correctCounter = 0;
+    incorrectCounter = 0;
+    questionIndex = 0;
+    $("#resultsFrame").hide();
+    $("#startButton").show();
+    $("#timerFrame").hide();
+    
 }
