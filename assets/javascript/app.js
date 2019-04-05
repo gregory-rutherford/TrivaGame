@@ -6,44 +6,53 @@ var incorrectAnswers = 0;
 var count;
 var counter = 5;
 var questionIndex = 0;
+var question;
+var answers;
+var correctAnswer;
+var pic;
 
 var questionsAnswers = [
   {
-    question: "What is ",
-    answers: ["answer 1", "answer 2", "answer3", "answer4"],
-    correctAnswer: "answer 1",
-    pic: "<img>"
+    question: "Who was the original creator of Ziggy?",
+    answers: ["Tom Wilson", "Charles Schulz", "Jim Davis", "Kathy Guisewite"],
+    correctAnswer: "Tom Wilson",
+    pic: "<img src='assets/images/tomwilson.webp'>"
   },
   {
-    question: "second question!",
-    answers: ["answer1", "answer2", "answer3", "answer4"],
-    correctAnswer: "answer2",
+    question: "What is the name of Ziggy's pet dog?",
+    answers: ["Buzz", "Fuzz", "Poochy", "Samuel"],
+    correctAnswer: "Fuzz",
+    pic: "<img src ='assets/images/fuzz.jpeg'>"
+  },
+  {
+    question: "What is the name of Ziggy's christmas special?",
+    answers: ["Ziggy's Gift", "Ziggy Christmas Special", "The Grinch featuring Ziggy", "Ziggy Xmas"],
+    correctAnswer: "Ziggy's Gift",
     pic: "<img>"
   }
 ];
-// startGame();
-// function startGame() {
+
   $("#startButton").on("click", function() {
     $(this).hide();
     countDown(counter);
     questionDom();
   });
-// }
+
 //timer that begins at each new question
 function countDown(x) {
     $("#timerFrame").html(
         "<h2>Time Remaining: " + x + "</h2>")
-    count = setInterval(function() {
+    count = setInterval(function () {
         x--;
-        if (x === -1){
-            correctDom();
+        if (x === -1) {
+            incorrectDom();
             setTimeout(nextQuestion, 5000);
             return clearInterval(count);
         }
-    $("#timerFrame").html(
-      "<h2>Time Remaining: " + x + "</h2>",
-    );
-  }, 1000);
+        $("#timerFrame").html(
+            "<h2>Time Remaining: " + x + "</h2>",
+        );
+    }, 1000);
 }
 // writes the question and answers to the page
 function questionDom() {
@@ -70,11 +79,12 @@ $(document).on("click", ".answer", function() {
     setTimeout(nextQuestion, 5000);
     if ($(this).text() === questionsAnswers[questionIndex].correctAnswer) {
         console.log("the correct guess has been clicked");
-        correctDom(true);
+        correctDom();
         correctCounter++;
         clearInterval(count);
     } else {
-        correctDom(false);
+        console.log("the wrong guess has been clicked.");
+        incorrectDom();
         incorrectCounter++;
         clearInterval(count);    
     }
@@ -82,28 +92,31 @@ $(document).on("click", ".answer", function() {
 
 
 //hides the question and answer elements and displays the correct answer screen
-function correctDom(userAnswer) {
+function correctDom() {
   $("#questionFrame").hide();
   $("#answersFrame").hide();
-  if (userAnswer === true){
-  $("#winFrame").text("Correct");
-  }
-  else if (userAnswer === false) {
-    $("#loseFrame").text("ya guessed wrong!");
-  } else {
-      $("#loseFrame").text("you ran out of time");
-  }
+  $("#winFrame").show();
+  $("#winFrame").html("<p>Correct!</p>" + questionsAnswers[questionIndex].pic);
 }
-function nextQuestion(){
+
+function incorrectDom() {
+    $("#questionFrame").hide();
+    $("#answersFrame").hide();
+    $("#loseFrame").show(); 
+    $("#loseFrame").html("<p> You guessed Wrong! The correct answer is: " 
+    + questionsAnswers[questionIndex].correctAnswer + "</p>");
+    $("#loseFrame").html(questionsAnswers[questionIndex].pic);
+  } 
+
+function nextQuestion() {
     $("#winFrame").hide();
-    $("#loseFrame").hide();
+    $("#loseFrame").hide(); 
     questionIndex++;
     if (questionIndex < questionsAnswers.length) {
-    countDown(counter);
-    questionDom();
-    $("#questionFrame").show();
-    $("#answersFrame").show();
-    setTimeout(nextQuestion(), 5000);
+        countDown(counter);
+        questionDom();
+        $("#questionFrame").show();
+        $("#answersFrame").show();
     } else {
         //end game function here
     }
