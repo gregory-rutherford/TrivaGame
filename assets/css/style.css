@@ -10,6 +10,7 @@ body {
   justify-content: space-around;
   flex-direction: row wrap;
   margin: 0;
+  height: 100vh;
 }
 
 h1 {
@@ -33,8 +34,9 @@ h1 {
   background: -webkit-linear-gradient(to bottom, #edde5d, #f09819);
   background: linear-gradient(to bottom, #edde5d, #f09819);
   width: 100%;
+  height: 100%;
   text-align: center;
-  height: 445px;
+  min-height: 445px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -71,6 +73,7 @@ button:hover {
   order: 1;
   flex-direction: column;
   flex-wrap: wrap;
+  cursor: pointer;
 }
 .answer:hover {
   opacity: 0.5;
@@ -79,4 +82,8 @@ button:hover {
 #pichead {
   border-radius: 55%;
   opacity: 0.9;
+}
+
+#timerFrame {
+  margin-top: 20px;
 }
