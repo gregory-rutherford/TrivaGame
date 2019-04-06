@@ -49,7 +49,7 @@ var questionsAnswers = [
   }
 ];
 
-$("#startButton").on("click", function() {
+$("#startButton").on("click", function () {
   $(this).hide();
   countDown(counter);
   questionDom();
@@ -59,8 +59,8 @@ $("#startButton").on("click", function() {
 
 //timer that begins at each new question
 function countDown(x) {
-  $("#timerFrame").html("<h2>Time Remaining: " + x + "</h2>");
-  count = setInterval(function() {
+  $("#timerFrame").html("<h2>Time Remaining: " + x + " " + "<i class='fas fa-bomb'></i></h2>");
+  count = setInterval(function () {
     x--;
     if (x === -1) {
       incorrectDom();
@@ -68,7 +68,7 @@ function countDown(x) {
       setTimeout(nextQuestion, 5000);
       return clearInterval(count);
     }
-    $("#timerFrame").html("<h2>Time Remaining: " + x + "</h2>");
+    $("#timerFrame").html("<h2>Time Remaining: " + x + " " + "<i class='fas fa-bomb'></i></h2>");
   }, 1000);
 }
 // writes the question and answers to the page
@@ -76,21 +76,21 @@ function questionDom() {
   $("#questionFrame").text(questionsAnswers[questionIndex].question);
   $("#answersFrame").html(
     "<p class='answer'>" +
-      questionsAnswers[questionIndex].answers[0] +
-      "</p>" +
-      "<p class='answer'>" +
-      questionsAnswers[questionIndex].answers[1] +
-      "</p>" +
-      "<p class='answer'>" +
-      questionsAnswers[questionIndex].answers[2] +
-      "</p>" +
-      "<p class='answer'>" +
-      questionsAnswers[questionIndex].answers[3] +
-      "</p>"
+    questionsAnswers[questionIndex].answers[0] +
+    "</p>" +
+    "<p class='answer'>" +
+    questionsAnswers[questionIndex].answers[1] +
+    "</p>" +
+    "<p class='answer'>" +
+    questionsAnswers[questionIndex].answers[2] +
+    "</p>" +
+    "<p class='answer'>" +
+    questionsAnswers[questionIndex].answers[3] +
+    "</p>"
   );
 }
 //makes each answer clickable, compares the correct answers and calls the correct or incorrect dom functions
-$(document).on("click", ".answer", function() {
+$(document).on("click", ".answer", function () {
   console.log("you clicked me");
   setTimeout(nextQuestion, 5000);
   if ($(this).text() === questionsAnswers[questionIndex].correctAnswer) {
@@ -119,9 +119,9 @@ function incorrectDom() {
   $("#loseFrame").show();
   $("#loseFrame").html(
     "<p> You guessed wrong! The correct answer is: " +
-      questionsAnswers[questionIndex].correctAnswer +
-      "</p>" +
-      questionsAnswers[questionIndex].pic
+    questionsAnswers[questionIndex].correctAnswer +
+    "</p>" +
+    questionsAnswers[questionIndex].pic
   );
 }
 // hides the results and moves onto the next question
@@ -138,12 +138,12 @@ function nextQuestion() {
     $("#resultsFrame").show();
     $("#resultsFrame").html(
       "<h1>Thanks for playing! Here are your results: " +
-        "<br/>" +
-        correctCounter +
-        " correct " +
-        "<br/>" +
-        incorrectCounter +
-        " incorrect </h1>"
+      "<br/>" +
+      correctCounter +
+      " correct " +
+      "<br/>" +
+      incorrectCounter +
+      " incorrect </h1>"
     );
     setTimeout(reset, 5000);
   }
