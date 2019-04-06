@@ -1,5 +1,76 @@
 img {
-    width: 300px;
-    height: 200px;
-    
+  width: 300px;
+  height: 200px;
+}
+
+body {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: row wrap;
+  margin: 0;
+}
+
+h1 {
+  margin-bottom: 10px;
+}
+
+#header {
+  background: #f09819; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #edde5d, #f09819);
+  background: linear-gradient(to bottom, #edde5d, #f09819);
+
+  font-family: "Fascinate Inline", cursive;
+  font-size: 48px;
+  letter-spacing: 6px;
+  width: 100%;
+  text-align: center;
+}
+
+#game {
+  border-top: 2px solid gray;
+  background: -webkit-linear-gradient(to bottom, #edde5d, #f09819);
+  background: linear-gradient(to bottom, #edde5d, #f09819);
+  width: 100%;
+  text-align: center;
+  height: 445px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+  margin-top: 40px;
+  font-size: 30px;
+  width: 250px;
+  height: 65px;
+  background-color: lemonchiffon;
+  color: black;
+  border: 2px solid black;
+  transition-duration: 0.4s;
+}
+#questionFrame,
+#timerFrame,
+#winFrame,
+#loseFrame,
+#answersFrame,
+#resultsFrame {
+  font-size: 24px;
+}
+button:hover {
+    background: bisque;
+}
+
+.answer {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  order: 1;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.answer:hover {
+  opacity: 0.5;
+}
+
+#pichead {
+  border-radius: 55%;
 }
