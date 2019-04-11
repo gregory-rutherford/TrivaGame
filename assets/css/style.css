@@ -18,7 +18,7 @@ h1 {
 }
 
 #header {
-  background: #f09819; 
+  background: #f09819;
   background: -webkit-linear-gradient(to bottom, #edde5d, #f09819);
   background: linear-gradient(to bottom, #edde5d, #f09819);
 
@@ -60,10 +60,12 @@ button {
 }
 
 #resultsFrame {
-    line-height: 80px;
+  line-height: 80px;
+  background: -webkit-linear-gradient(to bottom, #edde5d, #f09819);
+  background: linear-gradient(to bottom, #edde5d, #f09819);
 }
 button:hover {
-    background: bisque;
+  background: bisque;
 }
 
 .answer {
